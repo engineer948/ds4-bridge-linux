@@ -29,9 +29,9 @@ sudo apt install gcc python3 python3-gi gir1.2-gtk-3.0 gir1.2-ayatanaappindicato
 ## ⬇️ Download
 
 You can download the ready-to-use files directly from this repository:
-* [Download Compiled Executable (`ds4_bridge`)](https://github.com/engineer948/ds4aze/raw/main/ds4_bridge)
-* [Download Python Tray App (`ds4_tray.py`)](https://github.com/engineer948/ds4aze/raw/main/ds4_tray.py)
-* [Download C Source Code (`ds4_bridge.c`)](https://github.com/engineer948/ds4aze/raw/main/ds4_bridge.c)
+* [Download Compiled Executable (`ds4_bridge`)](https://github.com/engineer948/ds4-bridge-linux/releases/download/Alpha/ds4_bridge)
+* [Download Python Tray App (`ds4_tray.py`)](https://github.com/engineer948/ds4-bridge-linux/releases/download/Alpha/ds4_tray.py)
+* [Download C Source Code (`ds4_bridge.c`)](https://github.com/engineer948/ds4-bridge-linux/raw/main/ds4_bridge.c)
 
 *(After downloading the compiled executable, make sure to give it execution permissions by running: `chmod +x ds4_bridge`)*
 
