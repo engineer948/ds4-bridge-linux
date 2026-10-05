@@ -1,31 +1,34 @@
 # DS4 to Xbox 360 Bridge (For Knockoff DS4 Controllers)
 
 <div align="center">
-  <a href="https://github.com/engineer948/ds4-bridge-linux/releases/download/0.3/ds4_bridge">
-    <img src="https://img.shields.io/badge/Download-Compiled_Executable-green?style=for-the-badge&logo=linux" alt="Download Executable" />
+  <a href="https://github.com/engineer948/ds4-bridge-linux/releases/download/0.4/ds4_bridge">
+    <img src="https://img.shields.io/badge/Download-CLI_Executable-green?style=for-the-badge&logo=linux" alt="Download CLI Executable" />
   </a>
-  <a href="https://github.com/engineer948/ds4-bridge-linux/releases/download/0.3/ds4_tray.py">
-    <img src="https://img.shields.io/badge/Download-Python_Tray_App-blue?style=for-the-badge&logo=python" alt="Download Python Tray App" />
+  <a href="https://github.com/engineer948/ds4-bridge-linux/releases/download/0.4/ds4_bridge_tray">
+    <img src="https://img.shields.io/badge/Download-Tray_App_Executable-blue?style=for-the-badge&logo=c" alt="Download Tray App Executable" />
   </a>
   <br>
   <em>(Click both buttons to download the required files, or see the one-click terminal command below)</em>
   <br><br>
   <b>⚠️ Important:</b> If you download manually using these buttons, you must make the files executable by running:<br>
-  <code>chmod +x ds4_bridge ds4_tray.py</code>
+  <code>chmod +x ds4_bridge ds4_bridge_tray</code>
 </div>
 
 ---
 
-This project is a tool specifically designed to bridge **"knockoff" (fake) Sony DualShock 4 (DS4) controllers that don't work with Bluetooth or aren't recognized properly in Linux** into virtual **Microsoft Xbox 360** controllers. It is written using only the standard C library and POSIX/Linux headers.
+This project is a high-performance tool specifically designed to bridge **"knockoff" (fake) Sony DualShock 4 (DS4) controllers that don't work with Bluetooth or aren't recognized properly in Linux** into virtual **Microsoft Xbox 360** controllers. 
+
+**🔥 What's new in v0.4:** The project has been completely rewritten in C. The Python tray app dependency is gone! The new `ds4_bridge_tray` is a monolithic, thread-safe, lightweight C application that integrates both the bridge engine and the GTK3 System Tray menu into a single, lightning-fast executable with zero memory leaks.
 
 ## ⬇️ Download (One-Click)
 
-To download both the compiled executable and the Python tray app instantly into your current folder, run this single command in your terminal:
+To download both the command-line executable and the GTK Tray app executable instantly into your current folder, run this single command in your terminal:
 
 ```bash
-wget https://github.com/engineer948/ds4-bridge-linux/releases/download/0.3/ds4_bridge https://github.com/engineer948/ds4-bridge-linux/releases/download/0.3/ds4_tray.py && chmod +x ds4_bridge ds4_tray.py
+wget https://github.com/engineer948/ds4-bridge-linux/releases/download/0.4/ds4_bridge https://github.com/engineer948/ds4-bridge-linux/releases/download/0.4/ds4_bridge_tray && chmod +x ds4_bridge ds4_bridge_tray
 ```
-You can also download the [C Source Code (`ds4_bridge.c`)](https://github.com/engineer948/ds4-bridge-linux/raw/main/ds4_bridge.c) if you want to compile it yourself.
+
+You can also download the [C Source Code (`ds4_bridge.c`)](https://github.com/engineer948/ds4-bridge-linux/raw/main/ds4_bridge.c) and [`ds4_bridge_tray.c`](https://github.com/engineer948/ds4-bridge-linux/raw/main/ds4_bridge_tray.c) if you want to compile them yourself.
 
 ## 📌 What is this and why is it needed?
 
@@ -41,48 +44,54 @@ This program requires `uinput` v5+ (Linux Kernel 4.5 and newer). It works flawle
 * **Arch Linux / Manjaro**
 * **Pop!_OS** and any other distro with Kernel 4.5+.
 
-## 🛠 Dependencies
+## 🛠 Dependencies (For Compilation Only)
 
-If you want to compile the program yourself and use the system tray application, you need to install the required dependencies for your distribution:
+If you want to compile the program yourself and use the graphical system tray application, you need to install the required GTK and AppIndicator development headers for your distribution (No dependencies are required just to run the pre-compiled binary!):
 
 ### Ubuntu / Debian / Linux Mint / Pop!_OS
 ```bash
 sudo apt update
-sudo apt install gcc python3 python3-gi gir1.2-gtk-3.0 gir1.2-ayatanaappindicator3-0.1
+sudo apt install build-essential libgtk-3-dev libayatana-appindicator3-dev
 ```
-*(Note: If `ayatanaappindicator3` is not found, you can use `gir1.2-appindicator3-0.1` instead).*
+*(Note: If `libayatana-appindicator3-dev` is not found, you can use `libappindicator3-dev` instead).*
 
 ### Fedora
 ```bash
-sudo dnf install gcc python3 python3-gobject gtk3 libappindicator-gtk3
+sudo dnf install gcc gtk3-devel libayatana-appindicator-gtk3-devel
 ```
+*(Note: If `libayatana-appindicator-gtk3-devel` is not found, use `libappindicator-gtk3-devel`)*
 
 ### Arch Linux / Manjaro
 ```bash
-sudo pacman -S gcc python python-gobject gtk3 libappindicator-gtk3
+sudo pacman -S gcc gtk3 libayatana-appindicator
 ```
 
 ## ⚙️ Manual Compilation
 
-If you want to manually compile the C code (`ds4_bridge.c`), navigate to the project directory in your terminal and run the following command:
+Navigate to the project directory in your terminal.
 
+**Compile the background/CLI engine (`ds4_bridge`):**
 ```bash
 gcc -O2 ds4_bridge.c -o ds4_bridge
 ```
 
-This command will create an executable file named `ds4_bridge`.
+**Compile the GTK Tray Application (`ds4_bridge_tray`):**
+```bash
+gcc -O2 -std=gnu11 ds4_bridge_tray.c -o ds4_bridge_tray $(pkg-config --cflags --libs gtk+-3.0 ayatana-appindicator3-0.1) -lpthread
+```
+*(If you are using the legacy appindicator package, replace `ayatana-appindicator3-0.1` with `appindicator3-0.1` and add `-DUSE_LEGACY_APPINDICATOR` to the gcc command).*
 
 ## 🚀 Usage
 
 You can run the program in two different ways:
 
 ### Method 1: Graphical Interface (Tray App - Recommended)
-The most convenient method is to use the Tray application written in Python:
+The most convenient method is to use the standalone Tray application:
 ```bash
-python3 ds4_tray.py
+./ds4_bridge_tray
 ```
 * This will create an icon in your top panel (or system tray).
-* From there, you can Start Bridge, Stop Bridge, and View Logs.
+* From there, you can Start/Stop the bridge, monitor controller battery percentage, and view live logs.
 
 ### Method 2: From Terminal (CLI)
 To run it directly from the terminal (note: sometimes `root` (sudo) permissions may be required or `udev` rules must be added so `/dev/uinput` can be accessed):
@@ -102,15 +111,15 @@ To run it directly from the terminal (note: sometimes `root` (sudo) permissions 
 ./ds4_bridge -v
 ```
 
-*(Note: If you receive a `/dev/uinput` error, try running the program as `sudo ./ds4_bridge`).*
+*(Note: If you receive a `/dev/uinput` error, try running the program as `sudo ./ds4_bridge` or `sudo ./ds4_bridge_tray`).*
 
 ## 🛡️ VirusTotal Results
 
-For safety, you can check the VirusTotal results of the project files:
+For safety, you can check the VirusTotal results of the project files once they are released:
 
-* [Compiled Executable](https://www.virustotal.com/gui/file/7cfeb8ca80fd91aab933507214e868866a4bc16cd3c71fb7890738c2bf324b66?nocache=1)
-* [C Code (ds4_bridge.c)](https://www.virustotal.com/gui/file/ecf9979dabc56c0f9eb7d2b97412f589d76325d87de3d9d50483bd5b7f97bca0?nocache=1)
-* [Python Code (ds4_tray.py)](https://www.virustotal.com/gui/file/c8be3729cbb18aac808c7bdd22d2231580ae3da80e3c515069cb5f5362939393?nocache=1)
+* [Compiled CLI Executable (ds4_bridge) - 0.4](https://www.virustotal.com/gui/file/c703682bd63ca356d0b0b33d7a72a49ae93fa37a79953745fcc137bc3c5fc574?nocache=1)
+* [Compiled Tray Executable (ds4_bridge_tray) - 0.4](https://www.virustotal.com/gui/file/412c9bf6384fbbe5da016ae14ade9de38b78aeefc89c1ebe4bff72eddba74c85?nocache=1)
+* [C Code (ds4_bridge.c)](https://www.virustotal.com/gui/file/a9eb9f9c5ca37aae0ed4147a5cd2fa017351c567e319d53307ce87ea43f34f8b?nocache=1)
 
 ## 📝 Developer & Credits
 
@@ -120,7 +129,6 @@ For safety, you can check the VirusTotal results of the project files:
 ### Open Source Acknowledgments
 This project is built using and made possible by the following open-source technologies:
 * **[Linux Kernel (uinput)](https://www.kernel.org/):** Used for creating the virtual Xbox 360 controller. (GPLv2)
-* **[Python 3](https://www.python.org/):** Powers the tray application logic. (PSF License)
 * **[GTK 3](https://www.gtk.org/):** Used for rendering the system tray UI. (LGPL License)
 
 ## 🔍 Keywords / Search Tags
