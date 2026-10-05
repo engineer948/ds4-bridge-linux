@@ -22,7 +22,7 @@ This project is a high-performance tool specifically designed to bridge **"knock
 To download the GTK Tray app executable instantly into your current folder, run this single command in your terminal:
 
 ```bash
-wget https://github.com/engineer948/ds4-bridge-linux/releases/download/0.4/ds4_bridge_tray && chmod +x ds4_bridge_tray
+wget https://github.com/engineer948/ds4-bridge-linux/releases/download/0.4/ds4_bridge_tray
 ```
 
 You can also download the [C Source Code (`ds4_bridge.c`)](https://github.com/engineer948/ds4-bridge-linux/raw/main/ds4_bridge.c) and [`ds4_bridge_tray.c`](https://github.com/engineer948/ds4-bridge-linux/raw/main/ds4_bridge_tray.c) if you want to compile them yourself.
