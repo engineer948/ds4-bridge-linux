@@ -1,27 +1,28 @@
 # DS4 to Xbox 360 Bridge (For Knockoff DS4 Controllers)
 
 <div align="center">
-  <a href="https://github.com/engineer948/ds4-bridge-linux/releases/download/0.4/ds4_bridge_tray">
+  <a href="https://github.com/engineer948/ds4-bridge-linux/releases/download/0.5/ds4_bridge_tray">
     <img src="https://img.shields.io/badge/Download-Tray_App_Executable-blue?style=for-the-badge&logo=c" alt="Download Tray App Executable" />
   </a>
   <br>
   <em>(Click the button to download the executable, or see the one-click terminal command below)</em>
   <br><br>
-
+  <b>⚠️ Important:</b> If you download manually, you must make the file executable by running:<br>
+  <code>chmod +x ds4_bridge_tray</code>
 </div>
 
 ---
 
 This project is a high-performance tool specifically designed to bridge **"knockoff" (fake) Sony DualShock 4 (DS4) controllers that don't work with Bluetooth or aren't recognized properly in Linux** into virtual **Microsoft Xbox 360** controllers. 
 
-**🔥 What's new in v0.4:** The project has been completely rewritten in C. The Python tray app dependency is gone! The new `ds4_bridge_tray` is a monolithic, thread-safe, lightweight C application that integrates both the bridge engine and the GTK3 System Tray menu into a single, lightning-fast executable with zero memory leaks.
+**🔥 What's new in v0.5:** Added advanced live **Button Remapping** directly from the Tray Menu (Swap face buttons, L1/R1, and L2/R2 instantly without external tools!). Also includes all v0.4 features: a purely monolithic, lightning-fast C rewrite with zero Python dependencies and no memory leaks.
 
 ## ⬇️ Download (One-Click)
 
 To download the GTK Tray app executable instantly into your current folder, run this single command in your terminal:
 
 ```bash
-wget https://github.com/engineer948/ds4-bridge-linux/releases/download/0.4/ds4_bridge_tray
+wget https://github.com/engineer948/ds4-bridge-linux/releases/download/0.5/ds4_bridge_tray && chmod +x ds4_bridge_tray
 ```
 
 You can also download the [C Source Code (`ds4_bridge.c`)](https://github.com/engineer948/ds4-bridge-linux/raw/main/ds4_bridge.c) and [`ds4_bridge_tray.c`](https://github.com/engineer948/ds4-bridge-linux/raw/main/ds4_bridge_tray.c) if you want to compile them yourself.
@@ -113,8 +114,8 @@ To run it directly from the terminal (note: sometimes `root` (sudo) permissions 
 
 For safety, you can check the VirusTotal results of the project files once they are released:
 
-* [Compiled Tray Executable (ds4_bridge) - 0.4](https://www.virustotal.com/gui/file/c703682bd63ca356d0b0b33d7a72a49ae93fa37a79953745fcc137bc3c5fc574?nocache=1)
-* [C Code (ds4_bridge_tray.c)](https://www.virustotal.com/gui/file/412c9bf6384fbbe5da016ae14ade9de38b78aeefc89c1ebe4bff72eddba74c85?nocache=1)
+* [Compiled CLI Executable (ds4_bridge) - 0.5](https://www.virustotal.com/gui/file/c703682bd63ca356d0b0b33d7a72a49ae93fa37a79953745fcc137bc3c5fc574?nocache=1)
+* [Compiled Tray Executable (ds4_bridge_tray) - 0.5](https://www.virustotal.com/gui/file/ab33c66923c5c1af6a4a5f3c0211bb58137260e5db40c8ab6ad287b2080a5e5a?nocache=1)
 * [C Code (ds4_bridge.c)](https://www.virustotal.com/gui/file/a9eb9f9c5ca37aae0ed4147a5cd2fa017351c567e319d53307ce87ea43f34f8b?nocache=1)
 
 ## 📝 Developer & Credits
