@@ -94,7 +94,7 @@ struct key_map {
     unsigned short dst;   /* virtual Xbox 360 code                 */
 };
 
-static const struct key_map KEY_MAP[] = {
+static struct key_map KEY_MAP[] = {
     { BTN_SOUTH,  BTN_A      },
     { BTN_EAST,   BTN_B      },
     { BTN_WEST,   BTN_X      },
@@ -117,7 +117,7 @@ struct axis_map {
     enum axis_kind kind;
 };
 
-static const struct axis_map AXIS_MAP[] = {
+static struct axis_map AXIS_MAP[] = {
     { ABS_X,     ABS_X,     AXIS_STICK   },
     { ABS_Y,     ABS_Y,     AXIS_STICK   },
     { ABS_RX,    ABS_RX,    AXIS_STICK   },
@@ -1089,6 +1089,21 @@ static void on_controller_count_changed(GtkRadioMenuItem *item, gpointer user_da
     }
 }
 
+static void on_remap_changed(GtkRadioMenuItem *item, gpointer user_data) {
+    if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(item))) {
+        int data = GPOINTER_TO_INT(user_data);
+        int is_axis = (data >> 24) & 1;
+        int src_idx = (data >> 16) & 0xFF;
+        int dest_code = data & 0xFFFF;
+        if (is_axis) {
+            AXIS_MAP[src_idx].dst = dest_code;
+        } else {
+            KEY_MAP[src_idx].dst = dest_code;
+        }
+        logmsg(LOG_INFO, "Remapped %s index %d to code 0x%x", is_axis ? "axis" : "button", src_idx, dest_code);
+    }
+}
+
 static void on_logs_toggled(GtkCheckMenuItem *item, gpointer user_data) {
     g_logs_enabled = gtk_check_menu_item_get_active(item);
 }
@@ -1219,6 +1234,83 @@ static void setup_tray(void) {
         if (i == 1) gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(radio), TRUE);
         g_signal_connect(radio, "toggled", G_CALLBACK(on_controller_count_changed), GINT_TO_POINTER(i));
         gtk_menu_shell_append(GTK_MENU_SHELL(controller_menu), radio);
+    }
+    
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
+    
+    GtkWidget *remap_item = gtk_menu_item_new_with_label("\xF0\x9F\x8E\xAE Button Remapping"); // 🎮
+    GtkWidget *remap_menu = gtk_menu_new();
+    gtk_menu_item_set_submenu(GTK_MENU_ITEM(remap_item), remap_menu);
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), remap_item);
+    
+    const char *ds4_names[] = {"\xE2\x9D\x8C Cross maps to", "\xE2\xAD\x95 Circle maps to", "\xE2\x96\xAB Square maps to", "\xF0\x9F\x94\xBA Triangle maps to"};
+    const char *x360_names[] = {"A Button", "B Button", "X Button", "Y Button"};
+    int x360_codes[] = {BTN_A, BTN_B, BTN_X, BTN_Y};
+    int default_targets[] = {0, 1, 2, 3};
+    
+    for (int i = 0; i < 4; i++) {
+        GtkWidget *btn_item = gtk_menu_item_new_with_label(ds4_names[i]);
+        GtkWidget *btn_menu = gtk_menu_new();
+        gtk_menu_item_set_submenu(GTK_MENU_ITEM(btn_item), btn_menu);
+        gtk_menu_shell_append(GTK_MENU_SHELL(remap_menu), btn_item);
+        
+        GSList *group = NULL;
+        for (int j = 0; j < 4; j++) {
+            GtkWidget *radio = gtk_radio_menu_item_new_with_label(group, x360_names[j]);
+            group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(radio));
+            if (j == default_targets[i]) gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(radio), TRUE);
+            int data = (i << 16) | x360_codes[j];
+            g_signal_connect(radio, "toggled", G_CALLBACK(on_remap_changed), GINT_TO_POINTER(data));
+            gtk_menu_shell_append(GTK_MENU_SHELL(btn_menu), radio);
+        }
+    }
+    
+    gtk_menu_shell_append(GTK_MENU_SHELL(remap_menu), gtk_separator_menu_item_new());
+    
+    const char *bumper_names[] = {"\xF0\x9F\x94\xB9 L1 (LB) maps to", "\xF0\x9F\x94\xB9 R1 (RB) maps to"};
+    const char *bumper_targs[] = {"LB Button", "RB Button"};
+    int bumper_codes[] = {BTN_TL, BTN_TR};
+    int bumper_indices[] = {4, 5};
+    
+    for (int i = 0; i < 2; i++) {
+        GtkWidget *btn_item = gtk_menu_item_new_with_label(bumper_names[i]);
+        GtkWidget *btn_menu = gtk_menu_new();
+        gtk_menu_item_set_submenu(GTK_MENU_ITEM(btn_item), btn_menu);
+        gtk_menu_shell_append(GTK_MENU_SHELL(remap_menu), btn_item);
+        
+        GSList *group = NULL;
+        for (int j = 0; j < 2; j++) {
+            GtkWidget *radio = gtk_radio_menu_item_new_with_label(group, bumper_targs[j]);
+            group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(radio));
+            if (j == i) gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(radio), TRUE);
+            int data = (0 << 24) | (bumper_indices[i] << 16) | bumper_codes[j];
+            g_signal_connect(radio, "toggled", G_CALLBACK(on_remap_changed), GINT_TO_POINTER(data));
+            gtk_menu_shell_append(GTK_MENU_SHELL(btn_menu), radio);
+        }
+    }
+    
+    gtk_menu_shell_append(GTK_MENU_SHELL(remap_menu), gtk_separator_menu_item_new());
+    
+    const char *trig_names[] = {"\xF0\x9F\x8E\xAF L2 (LT) maps to", "\xF0\x9F\x8E\xAF R2 (RT) maps to"};
+    const char *trig_targs[] = {"LT Trigger", "RT Trigger"};
+    int trig_codes[] = {ABS_Z, ABS_RZ};
+    int trig_indices[] = {4, 5};
+    
+    for (int i = 0; i < 2; i++) {
+        GtkWidget *btn_item = gtk_menu_item_new_with_label(trig_names[i]);
+        GtkWidget *btn_menu = gtk_menu_new();
+        gtk_menu_item_set_submenu(GTK_MENU_ITEM(btn_item), btn_menu);
+        gtk_menu_shell_append(GTK_MENU_SHELL(remap_menu), btn_item);
+        
+        GSList *group = NULL;
+        for (int j = 0; j < 2; j++) {
+            GtkWidget *radio = gtk_radio_menu_item_new_with_label(group, trig_targs[j]);
+            group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(radio));
+            if (j == i) gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(radio), TRUE);
+            int data = (1 << 24) | (trig_indices[i] << 16) | trig_codes[j];
+            g_signal_connect(radio, "toggled", G_CALLBACK(on_remap_changed), GINT_TO_POINTER(data));
+            gtk_menu_shell_append(GTK_MENU_SHELL(btn_menu), radio);
+        }
     }
     
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
