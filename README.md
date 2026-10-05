@@ -114,7 +114,7 @@ To run it directly from the terminal (note: sometimes `root` (sudo) permissions 
 
 For safety, you can check the VirusTotal results of the project files once they are released:
 
-* [Compiled CLI Executable (ds4_bridge) - 0.4](https://www.virustotal.com/gui/file/c703682bd63ca356d0b0b33d7a72a49ae93fa37a79953745fcc137bc3c5fc574?nocache=1)
+* [Compiled Tray Executable (ds4_bridge) - 0.4](https://www.virustotal.com/gui/file/c703682bd63ca356d0b0b33d7a72a49ae93fa37a79953745fcc137bc3c5fc574?nocache=1)
 * [Compiled Tray Executable (ds4_bridge_tray) - 0.4](https://www.virustotal.com/gui/file/412c9bf6384fbbe5da016ae14ade9de38b78aeefc89c1ebe4bff72eddba74c85?nocache=1)
 * [C Code (ds4_bridge.c)](https://www.virustotal.com/gui/file/a9eb9f9c5ca37aae0ed4147a5cd2fa017351c567e319d53307ce87ea43f34f8b?nocache=1)
 
