@@ -121,7 +121,7 @@ For safety, you can check the VirusTotal results of the project files:
 This project is built using and made possible by the following open-source technologies:
 * **[Linux Kernel (uinput)](https://www.kernel.org/):** Used for creating the virtual Xbox 360 controller. (GPLv2)
 * **[Python 3](https://www.python.org/):** Powers the tray application logic. (PSF License)
-* **[GTK 3](https://www.gtk.org/) & [Ayatana AppIndicator](https://ayatana-indicators.org/):** Used for rendering the system tray UI. (LGPL License)
+* **[GTK 3](https://www.gtk.org/):** Used for rendering the system tray UI. (LGPL License)
 
 ## 🔍 Keywords / Search Tags
 `fake ds4 linux`, `knockoff ps4 controller linux`, `ds4 not recognized linux`, `ds4 over bluetooth linux problem`, `dualshock 4 clone linux driver`, `fake ds4 to xbox 360`, `ds4 uinput bridge`, `linux fake ds4 fix`, `ps4 controller clone linux setup`, `fake dualshock 4 bluetooth connection issue linux`, `linux ds4 vibration fix`, `fake ps4 controller rumble not working linux`, `knockoff dualshock 4 force feedback linux`, `ds4 bt connection problem ubuntu`, `third-party ps4 controller linux`, `ds4 spoof xbox 360 linux`, `ds4 evdev to uinput`, `unbranded ds4 controller ubuntu`, `generic ps4 controller linux driver`, `ds4 vibration rumble support linux`, `fake ds4 bluetooth pairing failed`, `cheap ps4 controller linux fix`, `ds4 input mapper linux`, `xpadneo alternative for fake ds4`, `linux ds4 emulation`, `fake ds4 windows vs linux`, `ps4 controller wire connection error linux`, `linux mint ds4 controller not detected`, `arch linux fake dualshock 4`, `ds4 force feedback bridge`, `bluetooth ps4 controller clone linux`, `ds4 bt mac address zero linux fix`
