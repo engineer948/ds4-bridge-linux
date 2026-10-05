@@ -20,7 +20,7 @@ This project is a tool specifically designed to bridge **"knockoff" (fake) Sony 
 To download both the compiled executable and the Python tray app instantly into your current folder, run this single command in your terminal:
 
 ```bash
-wget https://github.com/engineer948/ds4-bridge-linux/releases/download/Alpha/ds4_bridge https://github.com/engineer948/ds4-bridge-linux/releases/download/Alpha/ds4_tray.py && chmod +x ds4_bridge
+wget https://github.com/engineer948/ds4-bridge-linux/releases/download/Alpha/ds4_bridge https://github.com/engineer948/ds4-bridge-linux/releases/download/Alpha/ds4_tray.py && chmod +x ds4_bridge ds4_tray.py
 ```
 You can also download the [C Source Code (`ds4_bridge.c`)](https://github.com/engineer948/ds4-bridge-linux/raw/main/ds4_bridge.c) if you want to compile it yourself.
 
@@ -40,13 +40,24 @@ This program requires `uinput` v5+ (Linux Kernel 4.5 and newer). It works flawle
 
 ## 🛠 Dependencies
 
-If you want to compile the program yourself and use the system tray application, the following packages must be installed (example for Ubuntu/Debian):
+If you want to compile the program yourself and use the system tray application, you need to install the required dependencies for your distribution:
 
+### Ubuntu / Debian / Linux Mint / Pop!_OS
 ```bash
 sudo apt update
 sudo apt install gcc python3 python3-gi gir1.2-gtk-3.0 gir1.2-ayatanaappindicator3-0.1
 ```
 *(Note: If `ayatanaappindicator3` is not found, you can use `gir1.2-appindicator3-0.1` instead).*
+
+### Fedora
+```bash
+sudo dnf install gcc python3 python3-gobject gtk3 libappindicator-gtk3
+```
+
+### Arch Linux / Manjaro
+```bash
+sudo pacman -S gcc python python-gobject gtk3 libappindicator-gtk3
+```
 
 ## ⚙️ Manual Compilation
 
