@@ -7,8 +7,7 @@
   <br>
   <em>(Click the button to download the executable, or see the one-click terminal command below)</em>
   <br><br>
-  <b>⚠️ Important:</b> If you download manually, you must make the file executable by running:<br>
-  <code>chmod +x ds4_bridge_tray</code>
+
 </div>
 
 ---
