@@ -162,6 +162,7 @@ static volatile sig_atomic_t g_stop = 0;
 static int g_sigpipe[2] = { -1, -1 };
 static int g_use_syslog = 0;
 static int g_verbose = 0;
+static int g_deadzone_pct = 0;
 
 /* ------------------------------------------------------------------------- */
 /*  Logging                                                                   */
@@ -321,9 +322,16 @@ static int find_axis(unsigned short code)
 
 static int translate_axis(const struct bridge *b, int i, int v)
 {
+    int val = v;
     switch (AXIS_MAP[i].kind) {
     case AXIS_STICK:
-        return b->has_abs[i] ? scale_axis(v, &b->src_abs[i], STICK_MIN, STICK_MAX) : v;
+        val = b->has_abs[i] ? scale_axis(v, &b->src_abs[i], STICK_MIN, STICK_MAX) : v;
+        if (g_deadzone_pct > 0) {
+            int dz = (STICK_MAX * g_deadzone_pct) / 100;
+            if (val > -dz && val < dz)
+                val = 0;
+        }
+        return val;
     case AXIS_TRIGGER:
         return b->has_abs[i] ? scale_axis(v, &b->src_abs[i], TRIG_MIN, TRIG_MAX) : v;
     case AXIS_HAT:
@@ -699,7 +707,7 @@ static int open_candidate(const char *path, int *writable)
     return -1;
 }
 
-static void attach_ds4(struct bridge *b, int fd, int writable, const char *path, const char *name)
+static int attach_ds4(struct bridge *b, int fd, int writable, const char *path, const char *name)
 {
     unsigned long absbits[NLONGS(ABS_CNT)];
     unsigned long ffbits[NLONGS(FF_CNT)];
@@ -731,10 +739,12 @@ static void attach_ds4(struct bridge *b, int fd, int writable, const char *path,
     }
 
     if (b->grab) {
-        if (ioctl(fd, EVIOCGRAB, 1) == 0)
+        if (ioctl(fd, EVIOCGRAB, 1) == 0) {
             b->grabbed = 1;
-        else
-            logmsg(LOG_WARNING, "EVIOCGRAB failed (%s) - device might be used by another process", strerror(errno));
+        } else {
+            logmsg(LOG_DEBUG, "EVIOCGRAB failed (%s) - device %s might be used by another instance, skipping.", strerror(errno), path);
+            return -1;
+        }
     }
 
     memset(&id, 0, sizeof id);
@@ -747,6 +757,8 @@ static void attach_ds4(struct bridge *b, int fd, int writable, const char *path,
 
     ff_restore_on_connect(b);
     resync_from_ds4(b);
+    
+    return 0;
 }
 
 static int connect_ds4(struct bridge *b)
@@ -783,7 +795,11 @@ static int connect_ds4(struct bridge *b)
             continue;
         }
 
-        attach_ds4(b, fd, writable, path, name);
+        if (attach_ds4(b, fd, writable, path, name) < 0) {
+            close(fd);
+            continue;
+        }
+        
         rc = 0;
         break;
     }
@@ -987,10 +1003,11 @@ static int daemonize(void)
 static void usage(const char *prog)
 {
     fprintf(stderr,
-            "Usage: %s [-d] [-n] [-v] [-h]\n"
+            "Usage: %s [-d] [-n] [-v] [-z percent] [-h]\n"
             "  -d   Run as background daemon (logs to syslog/journal)\n"
             "  -n   Do not grab DS4 exclusively (no EVIOCGRAB)\n"
             "  -v   Verbose (debug) logs\n"
+            "  -z N Analog stick deadzone percentage (e.g. 15 for 15%%)\n"
             "  -h   Show this help\n", prog);
 }
 
@@ -1011,11 +1028,12 @@ int main(int argc, char **argv)
     b.grab = 1;
     ff_reset_phys(&b);
 
-    while ((opt = getopt(argc, argv, "dnvh")) != -1) {
+    while ((opt = getopt(argc, argv, "dnvz:h")) != -1) {
         switch (opt) {
         case 'd': daemon_mode = 1; break;
         case 'n': b.grab = 0;      break;
         case 'v': g_verbose = 1;   break;
+        case 'z': g_deadzone_pct = atoi(optarg); break;
         case 'h': usage(argv[0]);  return EXIT_SUCCESS;
         default:  usage(argv[0]);  return EXIT_FAILURE;
         }
