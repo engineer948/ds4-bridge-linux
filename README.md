@@ -9,6 +9,9 @@
   </a>
   <br>
   <em>(Click both buttons to download the required files, or see the one-click terminal command below)</em>
+  <br><br>
+  <b>⚠️ Important:</b> If you download manually using these buttons, you must make the files executable by running:<br>
+  <code>chmod +x ds4_bridge ds4_tray.py</code>
 </div>
 
 ---
