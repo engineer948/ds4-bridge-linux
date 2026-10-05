@@ -1,6 +1,28 @@
 # DS4 to Xbox 360 Bridge (For Knockoff DS4 Controllers)
 
+<div align="center">
+  <a href="https://github.com/engineer948/ds4-bridge-linux/releases/download/Alpha/ds4_bridge">
+    <img src="https://img.shields.io/badge/Download-Compiled_Executable-green?style=for-the-badge&logo=linux" alt="Download Executable" />
+  </a>
+  <a href="https://github.com/engineer948/ds4-bridge-linux/releases/download/Alpha/ds4_tray.py">
+    <img src="https://img.shields.io/badge/Download-Python_Tray_App-blue?style=for-the-badge&logo=python" alt="Download Python Tray App" />
+  </a>
+  <br>
+  <em>(Click both buttons to download the required files, or see the one-click terminal command below)</em>
+</div>
+
+---
+
 This project is a tool specifically designed to bridge **"knockoff" (fake) Sony DualShock 4 (DS4) controllers that don't work with Bluetooth or aren't recognized properly in Linux** into virtual **Microsoft Xbox 360** controllers. It is written using only the standard C library and POSIX/Linux headers.
+
+## ⬇️ Download (One-Click)
+
+To download both the compiled executable and the Python tray app instantly into your current folder, run this single command in your terminal:
+
+```bash
+wget https://github.com/engineer948/ds4-bridge-linux/releases/download/Alpha/ds4_bridge https://github.com/engineer948/ds4-bridge-linux/releases/download/Alpha/ds4_tray.py && chmod +x ds4_bridge
+```
+You can also download the [C Source Code (`ds4_bridge.c`)](https://github.com/engineer948/ds4-bridge-linux/raw/main/ds4_bridge.c) if you want to compile it yourself.
 
 ## 📌 What is this and why is it needed?
 
@@ -25,15 +47,6 @@ sudo apt update
 sudo apt install gcc python3 python3-gi gir1.2-gtk-3.0 gir1.2-ayatanaappindicator3-0.1
 ```
 *(Note: If `ayatanaappindicator3` is not found, you can use `gir1.2-appindicator3-0.1` instead).*
-
-## ⬇️ Download
-
-You can download the ready-to-use files directly from this repository:
-* [Download Compiled Executable (`ds4_bridge`)](https://github.com/engineer948/ds4-bridge-linux/releases/download/Alpha/ds4_bridge)
-* [Download Python Tray App (`ds4_tray.py`)](https://github.com/engineer948/ds4-bridge-linux/releases/download/Alpha/ds4_tray.py)
-* [Download C Source Code (`ds4_bridge.c`)](https://github.com/engineer948/ds4-bridge-linux/raw/main/ds4_bridge.c)
-
-*(After downloading the compiled executable, make sure to give it execution permissions by running: `chmod +x ds4_bridge`)*
 
 ## ⚙️ Manual Compilation
 
