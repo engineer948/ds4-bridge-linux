@@ -1,17 +1,14 @@
 # DS4 to Xbox 360 Bridge (For Knockoff DS4 Controllers)
 
 <div align="center">
-  <a href="https://github.com/engineer948/ds4-bridge-linux/releases/download/0.4/ds4_bridge">
-    <img src="https://img.shields.io/badge/Download-CLI_Executable-green?style=for-the-badge&logo=linux" alt="Download CLI Executable" />
-  </a>
   <a href="https://github.com/engineer948/ds4-bridge-linux/releases/download/0.4/ds4_bridge_tray">
     <img src="https://img.shields.io/badge/Download-Tray_App_Executable-blue?style=for-the-badge&logo=c" alt="Download Tray App Executable" />
   </a>
   <br>
-  <em>(Click both buttons to download the required files, or see the one-click terminal command below)</em>
+  <em>(Click the button to download the executable, or see the one-click terminal command below)</em>
   <br><br>
-  <b>⚠️ Important:</b> If you download manually using these buttons, you must make the files executable by running:<br>
-  <code>chmod +x ds4_bridge ds4_bridge_tray</code>
+  <b>⚠️ Important:</b> If you download manually, you must make the file executable by running:<br>
+  <code>chmod +x ds4_bridge_tray</code>
 </div>
 
 ---
@@ -22,10 +19,10 @@ This project is a high-performance tool specifically designed to bridge **"knock
 
 ## ⬇️ Download (One-Click)
 
-To download both the command-line executable and the GTK Tray app executable instantly into your current folder, run this single command in your terminal:
+To download the GTK Tray app executable instantly into your current folder, run this single command in your terminal:
 
 ```bash
-wget https://github.com/engineer948/ds4-bridge-linux/releases/download/0.4/ds4_bridge https://github.com/engineer948/ds4-bridge-linux/releases/download/0.4/ds4_bridge_tray && chmod +x ds4_bridge ds4_bridge_tray
+wget https://github.com/engineer948/ds4-bridge-linux/releases/download/0.4/ds4_bridge_tray && chmod +x ds4_bridge_tray
 ```
 
 You can also download the [C Source Code (`ds4_bridge.c`)](https://github.com/engineer948/ds4-bridge-linux/raw/main/ds4_bridge.c) and [`ds4_bridge_tray.c`](https://github.com/engineer948/ds4-bridge-linux/raw/main/ds4_bridge_tray.c) if you want to compile them yourself.
