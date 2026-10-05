@@ -1,10 +1,10 @@
 # DS4 to Xbox 360 Bridge (For Knockoff DS4 Controllers)
 
 <div align="center">
-  <a href="https://github.com/engineer948/ds4-bridge-linux/releases/download/Alpha/ds4_bridge">
+  <a href="https://github.com/engineer948/ds4-bridge-linux/releases/download/0.2/ds4_bridge">
     <img src="https://img.shields.io/badge/Download-Compiled_Executable-green?style=for-the-badge&logo=linux" alt="Download Executable" />
   </a>
-  <a href="https://github.com/engineer948/ds4-bridge-linux/releases/download/Alpha/ds4_tray.py">
+  <a href="https://github.com/engineer948/ds4-bridge-linux/releases/download/0.2/ds4_tray.py">
     <img src="https://img.shields.io/badge/Download-Python_Tray_App-blue?style=for-the-badge&logo=python" alt="Download Python Tray App" />
   </a>
   <br>
@@ -23,7 +23,7 @@ This project is a tool specifically designed to bridge **"knockoff" (fake) Sony 
 To download both the compiled executable and the Python tray app instantly into your current folder, run this single command in your terminal:
 
 ```bash
-wget https://github.com/engineer948/ds4-bridge-linux/releases/download/Alpha/ds4_bridge https://github.com/engineer948/ds4-bridge-linux/releases/download/Alpha/ds4_tray.py && chmod +x ds4_bridge ds4_tray.py
+wget https://github.com/engineer948/ds4-bridge-linux/releases/download/0.2/ds4_bridge https://github.com/engineer948/ds4-bridge-linux/releases/download/0.2/ds4_tray.py && chmod +x ds4_bridge ds4_tray.py
 ```
 You can also download the [C Source Code (`ds4_bridge.c`)](https://github.com/engineer948/ds4-bridge-linux/raw/main/ds4_bridge.c) if you want to compile it yourself.
 
@@ -104,7 +104,7 @@ To run it directly from the terminal (note: sometimes `root` (sudo) permissions 
 
 For safety, you can check the VirusTotal results of the project files:
 
-* [Compiled Executable](https://www.virustotal.com/gui/file/237d81af0d7c3e0858a8cb9c5f2c0455e6bc16159b0a31d48bebfbf81cb725dd?nocache=1)
+* [Compiled Executable](https://www.virustotal.com/gui/file/7cfeb8ca80fd91aab933507214e868866a4bc16cd3c71fb7890738c2bf324b66?nocache=1)
 * [C Code (ds4_bridge.c)](https://www.virustotal.com/gui/file/ecf9979dabc56c0f9eb7d2b97412f589d76325d87de3d9d50483bd5b7f97bca0?nocache=1)
 * [Python Code (ds4_tray.py)](https://www.virustotal.com/gui/file/e345324266f85997606692604ee794187085247e528a71a54e9c9a1a28215e3a?nocache=1)
 
