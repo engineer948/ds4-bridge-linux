@@ -94,6 +94,10 @@ To run it directly from the terminal (note: sometimes `root` (sudo) permissions 
 # Run in the background (as a daemon):
 ./ds4_bridge -d
 
+# Fix Analog Stick Drift (Deadzone %):
+# (e.g. filters out 15% of center stick movement for cheap controllers)
+./ds4_bridge -z 15
+
 # View detailed (verbose) logs:
 ./ds4_bridge -v
 ```
