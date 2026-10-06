@@ -2,7 +2,7 @@
 
 <div align="center">
   <a href="https://github.com/engineer948/ds4-bridge-linux/releases/download/0.6/ds4_bridge_tray">
-    <img src="https://img.shields.io/badge/Download-Tray_App_Executable-blue?style=for-the-badge&logo=c" alt="Download Tray App Executable 0.6" />
+    <img src="https://img.shields.io/badge/Download-Tray_App_Executable 0.6-blue?style=for-the-badge&logo=c" alt="Download Tray App Executable" />
   </a>
   <br>
   <em>(Click the button to download the executable, or see the one-click terminal command below)</em>
