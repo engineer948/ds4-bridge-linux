@@ -1,7 +1,7 @@
 # DS4 to Xbox 360 Bridge (For Knockoff DS4 Controllers)
 
 <div align="center">
-  <a href="https://github.com/engineer948/ds4-bridge-linux/releases/download/0.5/ds4_bridge_tray">
+  <a href="https://github.com/engineer948/ds4-bridge-linux/releases/download/0.6/ds4_bridge_tray">
     <img src="https://img.shields.io/badge/Download-Tray_App_Executable-blue?style=for-the-badge&logo=c" alt="Download Tray App Executable" />
   </a>
   <br>
@@ -15,14 +15,12 @@
 
 This project is a high-performance tool specifically designed to bridge **"knockoff" (fake) Sony DualShock 4 (DS4) controllers that don't work with Bluetooth or aren't recognized properly in Linux** into virtual **Microsoft Xbox 360** controllers. 
 
-**🔥 What's new in v0.5:** Added advanced live **Button Remapping** directly from the Tray Menu (Swap face buttons, L1/R1, and L2/R2 instantly without external tools!). Also includes all v0.4 features: a purely monolithic, lightning-fast C rewrite with zero Python dependencies and no memory leaks.
-
 ## ⬇️ Download (One-Click)
 
 To download the GTK Tray app executable instantly into your current folder, run this single command in your terminal:
 
 ```bash
-wget https://github.com/engineer948/ds4-bridge-linux/releases/download/0.5/ds4_bridge_tray && chmod +x ds4_bridge_tray
+wget https://github.com/engineer948/ds4-bridge-linux/releases/download/0.6/ds4_bridge_tray && chmod +x ds4_bridge_tray
 ```
 
 You can also download the [C Source Code (`ds4_bridge.c`)](https://github.com/engineer948/ds4-bridge-linux/raw/main/ds4_bridge.c) and [`ds4_bridge_tray.c`](https://github.com/engineer948/ds4-bridge-linux/raw/main/ds4_bridge_tray.c) if you want to compile them yourself.
