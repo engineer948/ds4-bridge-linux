@@ -155,9 +155,8 @@ To run the lightweight engine directly from the terminal:
 
 For safety, you can check the VirusTotal results of the project files once they are released:
 
-* [Compiled CLI Executable (ds4_bridge) - 0.7](https://www.virustotal.com/gui/home/upload) *(Update link manually after release)*
-* [Compiled Tray Executable (ds4_bridge_tray) - 0.7](https://www.virustotal.com/gui/home/upload) *(Update link manually after release)*
-* [C Code (ds4_bridge.c)](https://www.virustotal.com/gui/home/upload) *(Update link manually after release)*
+* [Compiled Tray Executable (ds4_bridge_tray) - 0.7](https://www.virustotal.com/gui/file/ca4a35cee078751c9abeaa1ee55e1c94c1c9947e98b123060cfa884361020c56?nocache=1) 
+
 
 ## 📝 Developer & Credits
 
