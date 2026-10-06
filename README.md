@@ -107,7 +107,7 @@ The bridge needs write access to `/dev/uinput` and to the DS4 event device. To u
 
 ```bash
 echo 'KERNEL=="uinput", SUBSYSTEM=="misc", TAG+="uaccess", OPTIONS+="static_node=uinput"' \
-  | sudo tee /etc/udev/rules.d/60-ds4aze-uinput.rules
+  | sudo tee /etc/udev/rules.d/60-ds4-bridge-uinput.rules
 sudo udevadm control --reload-rules && sudo udevadm trigger
 ```
 *Log out and back in (or reboot) afterwards.*
