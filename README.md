@@ -15,7 +15,7 @@
 
 This project is a high-performance tool specifically designed to bridge **"knockoff" (fake) Sony DualShock 4 (DS4) controllers that don't work with Bluetooth or aren't recognized properly in Linux** into virtual **Microsoft Xbox 360** controllers. 
 
-Games and launchers (Steam, SDL, Proton/Wine, emulators) that only support XInput-style pads will see a standard Xbox 360 controller (`045e:028e`).
+Games and launchers (Steam, SDL, Proton/Wine, emulators) that only support XInput-style pads will see a standard Xbox 360 controller.
 
 ```text
 [DS4 /dev/input/eventN] --(buttons / axes)--> bridge --> [/dev/uinput: Xbox 360 pad]
