@@ -246,6 +246,12 @@ static void logmsg(int prio, const char *fmt, ...)
 /*  Helpers                                                                  */
 /* ------------------------------------------------------------------------- */
 
+static void send_notification(const char *title, const char *msg, const char *icon) {
+    char cmd[1024];
+    snprintf(cmd, sizeof(cmd), "notify-send -i \"%s\" \"%s\" \"%s\"", icon, title, msg);
+    g_spawn_command_line_async(cmd, NULL);
+}
+
 static long long now_ms(void)
 {
     struct timespec ts;
@@ -711,6 +717,10 @@ static int attach_ds4(struct bridge *b, int fd, int writable, const char *path, 
     logmsg(LOG_INFO, "DS4 connected: \"%s\" (%s) rumble=%s",
            name, path, b->ds4_has_rumble ? "yes" : "no");
 
+    char notif_msg[256];
+    snprintf(notif_msg, sizeof(notif_msg), "Controller Connected! 🎮\n%s", name);
+    send_notification("DS4 Bridge", notif_msg, "input-gaming");
+
     ff_restore_on_connect(b);
     resync_from_ds4(b);
     return 0;
@@ -758,6 +768,11 @@ static void disconnect_ds4(struct bridge *b, const char *reason)
 {
     if (b->dfd < 0) return;
     logmsg(LOG_WARNING, "DS4 disconnected (%s): \"%s\" - waiting for reconnect...", reason, b->dev_name);
+    
+    char notif_msg[256];
+    snprintf(notif_msg, sizeof(notif_msg), "Controller Disconnected ❌\n%s", b->dev_name);
+    send_notification("DS4 Bridge", notif_msg, "input-gaming");
+    
     if (b->grabbed) (void)ioctl(b->dfd, EVIOCGRAB, 0);
     close(b->dfd);
     b->dfd = -1;
@@ -1016,12 +1031,6 @@ static int get_ds4_battery(void) {
     return battery;
 }
 
-static void send_notification(const char *title, const char *msg) {
-    char cmd[1024];
-    snprintf(cmd, sizeof(cmd), "notify-send -i battery-low \"%s\" \"%s\"", title, msg);
-    g_spawn_command_line_async(cmd, NULL);
-}
-
 static gboolean update_status_cb(gpointer user_data) {
     gboolean running = atomic_load(&g_bridge_running);
     
@@ -1046,7 +1055,7 @@ static gboolean update_status_cb(gpointer user_data) {
         if (battery <= 20 && !low_battery_notified) {
             char msg[128];
             snprintf(msg, sizeof(msg), "Your controller battery is very low (%d%%). Please charge it.", battery);
-            send_notification("🎮 DS4 Low Battery!", msg);
+            send_notification("🎮 DS4 Low Battery!", msg, "battery-low");
             low_battery_notified = 1;
         } else if (battery > 20) {
             low_battery_notified = 0;
