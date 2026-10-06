@@ -99,19 +99,6 @@ gcc -O2 -std=gnu11 ds4_bridge_tray.c -o ds4_bridge_tray $(pkg-config --cflags --
 ```
 *(If you are using the legacy appindicator package, replace `ayatana-appindicator3-0.1` with `appindicator3-0.1` and add `-DUSE_LEGACY_APPINDICATOR` to the gcc command).*
 
-## 🔑 Permissions (Run Without Root)
-
-The bridge needs write access to `/dev/uinput` and to the DS4 event device. To use it without `sudo`, add a udev rule:
-
-> **Note:** If you already have **Steam** installed on your Linux system, you might not need to do this! Steam automatically configures these permissions in the background. If the program works for you out of the box, you can skip this step.
-
-```bash
-echo 'KERNEL=="uinput", SUBSYSTEM=="misc", TAG+="uaccess", OPTIONS+="static_node=uinput"' \
-  | sudo tee /etc/udev/rules.d/60-ds4-bridge-uinput.rules
-sudo udevadm control --reload-rules && sudo udevadm trigger
-```
-*Log out and back in (or reboot) afterwards.*
-
 ## 🚀 Usage
 
 You can run the program in two different ways:
