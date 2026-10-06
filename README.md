@@ -1,8 +1,8 @@
 # DS4 to Xbox 360 Bridge (For Knockoff DS4 Controllers)
 
 <div align="center">
-  <a href="https://github.com/engineer948/ds4-bridge-linux/releases/download/0.6/ds4_bridge_tray">
-    <img src="https://img.shields.io/badge/Download-Tray_App_Executable 0.6-blue?style=for-the-badge&logo=c" alt="Download Tray App Executable" />
+  <a href="https://github.com/engineer948/ds4-bridge-linux/releases/download/0.7/ds4_bridge_tray">
+    <img src="https://img.shields.io/badge/Download-Tray_App_Executable 0.7-blue?style=for-the-badge&logo=c" alt="Download Tray App Executable" />
   </a>
   <br>
   <em>(Click the button to download the executable, or see the one-click terminal command below)</em>
@@ -15,12 +15,19 @@
 
 This project is a high-performance tool specifically designed to bridge **"knockoff" (fake) Sony DualShock 4 (DS4) controllers that don't work with Bluetooth or aren't recognized properly in Linux** into virtual **Microsoft Xbox 360** controllers. 
 
+Games and launchers (Steam, SDL, Proton/Wine, emulators) that only support XInput-style pads will see a standard Xbox 360 controller (`045e:028e`).
+
+```text
+[DS4 /dev/input/eventN] --(buttons / axes)--> bridge --> [/dev/uinput: Xbox 360 pad]
+[DS4 /dev/input/eventN] <----(rumble FF)----- bridge <-- [game]
+```
+
 ## ⬇️ Download (One-Click)
 
 To download the GTK Tray app executable instantly into your current folder, run this single command in your terminal:
 
 ```bash
-wget https://github.com/engineer948/ds4-bridge-linux/releases/download/0.6/ds4_bridge_tray && chmod +x ds4_bridge_tray
+wget https://github.com/engineer948/ds4-bridge-linux/releases/download/0.7/ds4_bridge_tray && chmod +x ds4_bridge_tray
 ```
 
 You can also download the [C Source Code (`ds4_bridge.c`)](https://github.com/engineer948/ds4-bridge-linux/raw/main/ds4_bridge.c) and [`ds4_bridge_tray.c`](https://github.com/engineer948/ds4-bridge-linux/raw/main/ds4_bridge_tray.c) if you want to compile them yourself.
@@ -28,6 +35,22 @@ You can also download the [C Source Code (`ds4_bridge.c`)](https://github.com/en
 ## 📌 What is this and why is it needed?
 
 Some fake or knockoff DS4 controllers are not properly recognized as gamepads by Linux when connected to a computer (especially via cable or their own dongle), or they simply do not work in games. This program reads the signals from these controllers and creates a fully functional virtual Xbox 360 controller in the system, ensuring that games recognize the controller without any issues.
+
+### ✨ Features
+
+- DS4 buttons, sticks, triggers and D-pad mapped to the Xbox 360 (xpad) layout.
+- Rumble / force feedback forwarded from the game to the DS4.
+- Exclusive grab of the physical DS4, so games don't see two controllers.
+- Automatic reconnect: the controller is picked up again when unplugged and plugged back in.
+
+### 🎮 Tray App Extras
+
+- Start / stop the bridge from the tray menu.
+- Up to **4 controllers** at the same time.
+- Battery level in the menu, plus a desktop notification below 20%.
+- Button remapping (face buttons, bumpers, triggers).
+- Log file toggle and built-in log viewer.
+- **🚀 Start on Login**: one-click autostart toggle for XDG-compliant desktops (GNOME, KDE, XFCE, etc.).
 
 ## 🐧 Which Linux Distros are Supported?
 
@@ -58,7 +81,7 @@ sudo dnf install gcc gtk3-devel libayatana-appindicator-gtk3-devel
 
 ### Arch Linux / Manjaro
 ```bash
-sudo pacman -S gcc gtk3 libayatana-appindicator
+sudo pacman -S base-devel gtk3 libayatana-appindicator
 ```
 
 ## ⚙️ Manual Compilation
@@ -76,6 +99,17 @@ gcc -O2 -std=gnu11 ds4_bridge_tray.c -o ds4_bridge_tray $(pkg-config --cflags --
 ```
 *(If you are using the legacy appindicator package, replace `ayatana-appindicator3-0.1` with `appindicator3-0.1` and add `-DUSE_LEGACY_APPINDICATOR` to the gcc command).*
 
+## 🔑 Permissions (Run Without Root)
+
+The bridge needs write access to `/dev/uinput` and to the DS4 event device. To use it without `sudo`, add a udev rule:
+
+```bash
+echo 'KERNEL=="uinput", SUBSYSTEM=="misc", TAG+="uaccess", OPTIONS+="static_node=uinput"' \
+  | sudo tee /etc/udev/rules.d/60-ds4aze-uinput.rules
+sudo udevadm control --reload-rules && sudo udevadm trigger
+```
+*Log out and back in (or reboot) afterwards.*
+
 ## 🚀 Usage
 
 You can run the program in two different ways:
@@ -86,10 +120,16 @@ The most convenient method is to use the standalone Tray application:
 ./ds4_bridge_tray
 ```
 * This will create an icon in your top panel (or system tray).
-* From there, you can Start/Stop the bridge, monitor controller battery percentage, and view live logs.
+* From there, you can Start/Stop the bridge, monitor controller battery percentage, remap buttons, and view live logs.
+* **Autostart:** Check **🚀 Start on Login** in the tray menu to automatically launch the bridge when you log in.
+
+If you want to start the tray app and immediately enable the bridge from a script or terminal:
+```bash
+./ds4_bridge_tray --start
+```
 
 ### Method 2: From Terminal (CLI)
-To run it directly from the terminal (note: sometimes `root` (sudo) permissions may be required or `udev` rules must be added so `/dev/uinput` can be accessed):
+To run the lightweight engine directly from the terminal:
 
 ```bash
 # Run in the foreground:
@@ -97,6 +137,9 @@ To run it directly from the terminal (note: sometimes `root` (sudo) permissions 
 
 # Run in the background (as a daemon):
 ./ds4_bridge -d
+
+# Don't grab the DS4 exclusively (games see both devices):
+./ds4_bridge -n
 
 # Fix Analog Stick Drift (Deadzone %):
 # (e.g. filters out 15% of center stick movement for cheap controllers)
@@ -106,15 +149,15 @@ To run it directly from the terminal (note: sometimes `root` (sudo) permissions 
 ./ds4_bridge -v
 ```
 
-*(Note: If you receive a `/dev/uinput` error, try running the program as `sudo ./ds4_bridge` or `sudo ./ds4_bridge_tray`).*
+*(Note: If you receive a `/dev/uinput` error, ensure you have set up the `udev` rule above, or run as `sudo`).*
 
 ## 🛡️ VirusTotal Results
 
 For safety, you can check the VirusTotal results of the project files once they are released:
 
-* [Compiled CLI Executable (ds4_bridge) - 0.5](https://www.virustotal.com/gui/file/c703682bd63ca356d0b0b33d7a72a49ae93fa37a79953745fcc137bc3c5fc574?nocache=1)
-* [Compiled Tray Executable (ds4_bridge_tray) - 0.5](https://www.virustotal.com/gui/file/ab33c66923c5c1af6a4a5f3c0211bb58137260e5db40c8ab6ad287b2080a5e5a?nocache=1)
-* [C Code (ds4_bridge.c)](https://www.virustotal.com/gui/file/a9eb9f9c5ca37aae0ed4147a5cd2fa017351c567e319d53307ce87ea43f34f8b?nocache=1)
+* [Compiled CLI Executable (ds4_bridge) - 0.7](https://www.virustotal.com/gui/home/upload) *(Update link manually after release)*
+* [Compiled Tray Executable (ds4_bridge_tray) - 0.7](https://www.virustotal.com/gui/home/upload) *(Update link manually after release)*
+* [C Code (ds4_bridge.c)](https://www.virustotal.com/gui/home/upload) *(Update link manually after release)*
 
 ## 📝 Developer & Credits
 

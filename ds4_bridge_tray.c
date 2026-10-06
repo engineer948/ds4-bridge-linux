@@ -1117,6 +1117,113 @@ static void on_logs_toggled(GtkCheckMenuItem *item, gpointer user_data) {
     g_logs_enabled = gtk_check_menu_item_get_active(item);
 }
 
+/* ------------------------------------------------------------------------- */
+/*  Autostart (XDG: ~/.config/autostart/ds4_bridge_tray.desktop)             */
+/* ------------------------------------------------------------------------- */
+
+static gchar *autostart_file_path(void) {
+    return g_build_filename(g_get_user_config_dir(), "autostart",
+                            "ds4_bridge_tray.desktop", NULL);
+}
+
+static int autostart_is_enabled(void) {
+    gchar *path = autostart_file_path();
+    int enabled = g_file_test(path, G_FILE_TEST_EXISTS);
+    g_free(path);
+    return enabled;
+}
+
+/* Quote a path as a single Exec= argument (Desktop Entry spec, exec level).
+ * String-level escaping (backslashes) is done later by GKeyFile. */
+static gchar *desktop_exec_quote(const char *s) {
+    GString *out = g_string_new("\"");
+    for (const char *p = s; *p; p++) {
+        if (*p == '"' || *p == '`' || *p == '$' || *p == '\\')
+            g_string_append_c(out, '\\');
+        else if (*p == '%')
+            g_string_append_c(out, '%');
+        g_string_append_c(out, *p);
+    }
+    g_string_append_c(out, '"');
+    return g_string_free(out, FALSE);
+}
+
+static gboolean autostart_enable(GError **err) {
+    gchar *exe = g_file_read_link("/proc/self/exe", err);
+    if (!exe) return FALSE;
+
+    gchar *exe_dir = g_path_get_dirname(exe);
+    gchar *qexe    = desktop_exec_quote(exe);
+    gchar *exec    = g_strdup_printf("%s --start", qexe);
+    gchar *path    = autostart_file_path();
+    gchar *dir     = g_path_get_dirname(path);
+    gboolean ok    = FALSE;
+
+    if (g_mkdir_with_parents(dir, 0755) != 0) {
+        int e = errno;
+        g_set_error(err, G_FILE_ERROR, g_file_error_from_errno(e),
+                    "Cannot create %s: %s", dir, g_strerror(e));
+    } else {
+        const char *grp = G_KEY_FILE_DESKTOP_GROUP;
+        GKeyFile *kf = g_key_file_new();
+        g_key_file_set_string (kf, grp, G_KEY_FILE_DESKTOP_KEY_TYPE, "Application");
+        g_key_file_set_string (kf, grp, G_KEY_FILE_DESKTOP_KEY_NAME, "DS4 Bridge");
+        g_key_file_set_string (kf, grp, G_KEY_FILE_DESKTOP_KEY_COMMENT,
+                               "DualShock 4 to Xbox 360 controller bridge");
+        g_key_file_set_string (kf, grp, G_KEY_FILE_DESKTOP_KEY_EXEC, exec);
+        g_key_file_set_string (kf, grp, G_KEY_FILE_DESKTOP_KEY_PATH, exe_dir);
+        g_key_file_set_string (kf, grp, G_KEY_FILE_DESKTOP_KEY_ICON, "input-gaming");
+        g_key_file_set_boolean(kf, grp, G_KEY_FILE_DESKTOP_KEY_TERMINAL, FALSE);
+        g_key_file_set_boolean(kf, grp, "X-GNOME-Autostart-enabled", TRUE);
+        g_key_file_set_integer(kf, grp, "X-GNOME-Autostart-Delay", 3);
+        ok = g_key_file_save_to_file(kf, path, err);
+        g_key_file_free(kf);
+    }
+
+    g_free(dir);
+    g_free(path);
+    g_free(exec);
+    g_free(qexe);
+    g_free(exe_dir);
+    g_free(exe);
+    return ok;
+}
+
+static gboolean autostart_disable(GError **err) {
+    gchar *path = autostart_file_path();
+    gboolean ok = TRUE;
+    if (unlink(path) != 0 && errno != ENOENT) {
+        int e = errno;
+        g_set_error(err, G_FILE_ERROR, g_file_error_from_errno(e),
+                    "Cannot remove %s: %s", path, g_strerror(e));
+        ok = FALSE;
+    }
+    g_free(path);
+    return ok;
+}
+
+static void on_autostart_toggled(GtkCheckMenuItem *item, gpointer user_data) {
+    gboolean want = gtk_check_menu_item_get_active(item);
+    GError *err = NULL;
+    gboolean ok = want ? autostart_enable(&err) : autostart_disable(&err);
+
+    if (ok) {
+        logmsg(LOG_INFO, "Start on login %s", want ? "enabled" : "disabled");
+        send_notification("DS4 Bridge",
+                          want ? "DS4 Bridge will start automatically on login."
+                               : "DS4 Bridge will no longer start on login.",
+                          "input-gaming");
+    } else {
+        logmsg(LOG_ERR, "Failed to %s start on login: %s",
+               want ? "enable" : "disable", err ? err->message : "unknown error");
+        /* Revert the checkbox without re-triggering this handler */
+        g_signal_handlers_block_by_func(item, on_autostart_toggled, user_data);
+        gtk_check_menu_item_set_active(item, !want);
+        g_signal_handlers_unblock_by_func(item, on_autostart_toggled, user_data);
+    }
+    if (err) g_error_free(err);
+}
+
 static void show_logs_clicked(GtkMenuItem *item, gpointer user_data) {
     char *logs = malloc(32768);
     if (!logs) return;
@@ -1335,6 +1442,13 @@ static void setup_tray(void) {
     
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
     
+    GtkWidget *autostart_toggle = gtk_check_menu_item_new_with_label("\xF0\x9F\x9A\x80 Start on Login"); // 🚀
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(autostart_toggle), autostart_is_enabled());
+    g_signal_connect(autostart_toggle, "toggled", G_CALLBACK(on_autostart_toggled), NULL);
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), autostart_toggle);
+    
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), gtk_separator_menu_item_new());
+    
     GtkWidget *quit_item = gtk_menu_item_new_with_label("\xE2\x9D\x8C Quit"); // ❌
     g_signal_connect(quit_item, "activate", G_CALLBACK(quit_app), NULL);
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), quit_item);
@@ -1357,7 +1471,25 @@ int main(int argc, char **argv) {
         strcpy(log_file_path, "ds4_bridge.log");
     }
     
+    int auto_start_bridge = 0;
+    for (int i = 1; i < argc; i++) {
+        if (strcmp(argv[i], "--start") == 0)
+            auto_start_bridge = 1;
+    }
+    
+    /* Refresh the autostart entry so it always points at the current binary
+     * location (e.g. if the program was moved or rebuilt elsewhere). */
+    if (autostart_is_enabled()) {
+        GError *err = NULL;
+        if (!autostart_enable(&err)) {
+            logmsg(LOG_WARNING, "Could not refresh autostart entry: %s", err->message);
+            g_error_free(err);
+        }
+    }
+    
     setup_tray();
+    if (auto_start_bridge)
+        start_bridge();
     update_status_cb(NULL);
     g_timeout_add_seconds(2, update_status_cb, NULL);
     
