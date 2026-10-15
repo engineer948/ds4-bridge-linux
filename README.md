@@ -1,8 +1,8 @@
 # DS4 to Xbox 360 Bridge (For Knockoff DS4 Controllers)
 
 <div align="center">
-  <a href="https://github.com/engineer948/ds4-bridge-linux/releases/download/0.7/ds4_bridge_tray">
-    <img src="https://img.shields.io/badge/Download-Tray_App_Executable 0.7-blue?style=for-the-badge&logo=c" alt="Download Tray App Executable" />
+  <a href="https://github.com/engineer948/ds4-bridge-linux/releases/download/0.8/ds4_bridge_tray">
+    <img src="https://img.shields.io/badge/Download-Tray_App_Executable 0.8-blue?style=for-the-badge&logo=c" alt="Download Tray App Executable" />
   </a>
   <br>
   <em>(Click the button to download the executable, or see the one-click terminal command below)</em>
@@ -27,7 +27,7 @@ Games and launchers (Steam, SDL, Proton/Wine, emulators) that only support XInpu
 To download the GTK Tray app executable instantly into your current folder, run this single command in your terminal:
 
 ```bash
-wget https://github.com/engineer948/ds4-bridge-linux/releases/download/0.7/ds4_bridge_tray && chmod +x ds4_bridge_tray
+wget https://github.com/engineer948/ds4-bridge-linux/releases/download/0.8/ds4_bridge_tray && chmod +x ds4_bridge_tray
 ```
 
 You can also download the [C Source Code (`ds4_bridge.c`)](https://github.com/engineer948/ds4-bridge-linux/raw/main/ds4_bridge.c) and [`ds4_bridge_tray.c`](https://github.com/engineer948/ds4-bridge-linux/raw/main/ds4_bridge_tray.c) if you want to compile them yourself.
