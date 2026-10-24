@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>License &amp; Legal · DS4 Bridge</title>
+<meta name="description" content="License, legal disclaimer, trademarks and privacy information for DS4 Bridge by engineer948.">
+<meta name="author" content="engineer948">
+<link rel="icon" href="packaging/ds4-bridge.svg" type="image/svg+xml">
+<script>
+  try { var t = localStorage.getItem('ds4-theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+</script>
+<style>
+  :root {
+    color-scheme: light;
+    --bg: #ffffff;
+    --bg-soft: #f4f4f4;
+    --card: #ffffff;
+    --text: #111111;
+    --muted: #5f6368;
+    --faint: #8a8a8a;
+    --border: #e8e8e8;
+    --accent: #c2470a;
+    --header: rgba(255, 255, 255, .94);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --bg: #0c0c0c;
+      --bg-soft: #171717;
+      --card: #141414;
+      --text: #f5f5f5;
+      --muted: #a3a3a3;
+      --faint: #737373;
+      --border: #262626;
+      --accent: #ff8a3d;
+      --header: rgba(12, 12, 12, .9);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --bg: #0c0c0c;
+    --bg-soft: #171717;
+    --card: #141414;
+    --text: #f5f5f5;
+    --muted: #a3a3a3;
+    --faint: #737373;
+    --border: #262626;
+    --accent: #ff8a3d;
+    --header: rgba(12, 12, 12, .9);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 17px/1.7 Inter, "Helvetica Neue", Arial, system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, "Noto Sans", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { max-width: 780px; margin: 0 auto; padding: 0 16px; }
+
+  header {
+    position: sticky; top: 0; z-index: 10;
+    background: var(--header);
+    backdrop-filter: blur(10px); border-bottom: 1px solid var(--border);
+  }
+  header .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; max-width: 1120px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; color: var(--text); }
+  .brand:hover { text-decoration: none; }
+  .brand img { width: 28px; height: 28px; }
+  .back { font-size: 15px; font-weight: 500; }
+
+  main { padding: 56px 0 72px; }
+  .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+  h1 { font-size: clamp(30px, 5vw, 42px); letter-spacing: -.02em; line-height: 1.15; margin: 10px 0 12px; }
+  .updated { color: var(--faint); font-size: 14px; margin: 0 0 32px; }
+
+  nav.toc {
+    border: 1px solid var(--border); border-radius: 14px; background: var(--bg-soft);
+    padding: 18px 22px; margin-bottom: 40px;
+  }
+  nav.toc b { display: block; font-size: 14px; margin-bottom: 6px; }
+  nav.toc ol { margin: 0; padding-left: 20px; color: var(--muted); }
+
+  section { padding-top: 8px; margin-bottom: 36px; }
+  h2 { font-size: 22px; letter-spacing: -.01em; margin: 0 0 10px; scroll-margin-top: 80px; }
+  p, li { color: var(--muted); }
+  ul { padding-left: 22px; }
+  .caps { font-size: 14px; letter-spacing: .01em; }
+  .box {
+    border: 1px solid var(--border); border-radius: 14px; background: var(--card);
+    padding: 20px 22px; margin: 14px 0;
+  }
+  .box p { margin: 0; }
+
+  footer { background: #000; padding: 28px 0 40px; color: #a8a8a8; font-size: 14px; }
+  footer a { color: #fff; }
+  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="packaging/ds4-bridge.svg" alt=""> DS4 Bridge</a>
+    <a class="back" href="index.html">← Back to home</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <span class="eyebrow">Legal</span>
+    <h1>License &amp; Disclaimer</h1>
+    <p class="updated">DS4 Bridge 1.0 · by engineer948</p>
+
+    <nav class="toc" aria-label="Contents">
+      <b>Contents</b>
+      <ol>
+        <li><a href="#license">License</a></li>
+        <li><a href="#affiliation">No affiliation</a></li>
+        <li><a href="#trademarks">Trademarks</a></li>
+        <li><a href="#warranty">No warranty &amp; limitation of liability</a></li>
+        <li><a href="#games">Games, DRM &amp; anti-cheat</a></li>
+        <li><a href="#system">Changes to your system</a></li>
+        <li><a href="#privacy">Privacy</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ol>
+    </nav>
+
+    <section id="license">
+      <h2>1. License</h2>
+      <p>DS4 Bridge is free, open-source software designed, developed and maintained by <a href="https://github.com/engineer948">engineer948</a>. The source code is publicly available on <a href="https://github.com/engineer948/ds4-bridge-linux">GitHub</a>.</p>
+      <p>DS4 Bridge is released under the <b>MIT License</b>. You may use, copy, modify, merge, publish, distribute, sublicense and sell copies of the software, provided that the copyright notice and the permission notice are included in all copies or substantial portions of the software.</p>
+      <div class="box"><p><a href="https://github.com/engineer948/ds4-bridge-linux/blob/main/LICENSE.md">Read the full MIT License text on GitHub →</a></p></div>
+      <p>The DS4 Bridge name and logo identify this project. Please do not use them in a way that suggests a modified version or another product comes from the original author.</p>
+    </section>
+
+    <section id="affiliation">
+      <h2>2. No affiliation</h2>
+      <p>DS4 Bridge is an independent project. It is not affiliated with, endorsed, sponsored or approved by Sony Interactive Entertainment Inc., Microsoft Corporation, Valve Corporation or any other company named on this website or in the software.</p>
+    </section>
+
+    <section id="trademarks">
+      <h2>3. Trademarks</h2>
+      <ul>
+        <li>"PlayStation", "DualShock" and "PS4" are trademarks of Sony Interactive Entertainment Inc.</li>
+        <li>"Xbox" and "Xbox 360" are trademarks of Microsoft Corporation.</li>
+        <li>"Steam" and "Proton" are trademarks of Valve Corporation.</li>
+        <li>All other trademarks are the property of their respective owners.</li>
+      </ul>
+      <p>These names are used only to describe compatibility. The terms "knockoff", "clone" and "fake" describe third-party, unlicensed or unbranded controllers that imitate the functionality of official hardware.</p>
+    </section>
+
+    <section id="warranty">
+      <h2>4. No warranty &amp; limitation of liability</h2>
+      <p class="caps">THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE AUTHOR OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+      <p>You use DS4 Bridge at your own risk. The author is not responsible for any damage to hardware, software or data, or for any loss resulting from its use.</p>
+    </section>
+
+    <section id="games">
+      <h2>5. Games, DRM &amp; anti-cheat</h2>
+      <p>DS4 Bridge only reads standard input events from your controller and passes them to a virtual controller through the Linux kernel. It does not modify games and does not bypass DRM, copy protection or anti-cheat systems.</p>
+      <p>Some online games restrict the use of virtual input devices or input remapping. It is your responsibility to check and follow the rules of the games and services you use.</p>
+    </section>
+
+    <section id="system">
+      <h2>6. Changes to your system</h2>
+      <p>DS4 Bridge runs as your normal user. It only changes system settings when you explicitly allow it: the optional permission fix installs a udev rule for <code>/dev/uinput</code> and asks for your administrator password first. "Start on Login" creates a standard autostart entry in your home folder, which you can turn off at any time.</p>
+    </section>
+
+    <section id="privacy">
+      <h2>7. Privacy</h2>
+      <p>The DS4 Bridge application does not collect, store or transmit any personal data and does not connect to the internet. Settings and logs are stored only on your computer.</p>
+      <p>This website is a static page. It loads the public star and download counts of the project from the GitHub API and the developer's public avatar from GitHub; these requests are subject to <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub's privacy statement</a>. The website sets no cookies and uses no analytics.</p>
+    </section>
+
+    <section id="contact">
+      <h2>8. Contact</h2>
+      <p>Questions, bug reports or concerns about this notice: please open an issue on <a href="https://github.com/engineer948/ds4-bridge-linux/issues">GitHub</a>.</p>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="year">2026</span> engineer948 · DS4 Bridge</span>
+    <a href="index.html">← Back to home</a>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
