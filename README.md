@@ -69,7 +69,7 @@ You can also download the [C Source Code (`ds4_bridge.c`)](https://github.com/en
 - **Round deadzone per stick**, rumble strength, invert Y, swap sticks, digital triggers.
 - **Choose the virtual controller**: Xbox 360, Xbox One S or DualShock 4.
 - **Battery per controller** with charging indicator.
-- **One-click permission fix** for `/dev/uinput`.
+- **Guided permission fix** for `/dev/uinput`: shows the exact command to copy.
 - **Languages**: English and Azərbaycanca.
 - Log file capped at 1 MiB with a live log viewer.
 - Fixes: remapping while playing no longer leaves buttons stuck, the status no longer shows "Running" when `/dev/uinput` can't be opened, and the battery is no longer read from a mouse or headset.
@@ -99,7 +99,7 @@ Some fake or knockoff DS4 controllers are not properly recognized as gamepads by
 - **Gyro aiming** (controllers with working motion sensors): drives the right stick or the mouse pointer, always or while a button is held, with calibration.
 - **Desktop mode** (PS + Options): the controller works as a mouse and keyboard.
 - **Controller test** window: live sticks, deadzone, triggers, buttons and gyro, handy for finding the right deadzone for a drifting stick.
-- **/dev/uinput permission helper**: if the bridge has no access, it offers to install the udev rule for you (asks for the admin password).
+- **/dev/uinput permission helper**: if the bridge has no access, it shows the udev rule command with a Copy button. The app never asks for admin rights itself.
 - Log file limited to 1 MiB (older lines move to `ds4_bridge.log.1`) and a live log viewer.
 - Interface in **English** and **Azərbaycanca** (🌐 Language menu).
 - **🚀 Start on Login**: one-click autostart toggle for XDG-compliant desktops (GNOME, KDE, XFCE, etc.).
@@ -168,7 +168,7 @@ sudo udevadm control --reload-rules && sudo udevadm trigger
 ```
 *Log out and back in (or reboot) afterwards.*
 
-The tray app can do this for you: when it cannot open `/dev/uinput` it offers to install the rule (🔧 **Fix /dev/uinput Permissions…** in the menu or in Settings → General).
+When the tray app cannot open `/dev/uinput`, it shows these commands with a Copy button (also under 🔧 **How to Fix /dev/uinput Access…** in the menu and in Settings → General).
 
 ## 🚀 Usage
 
@@ -218,7 +218,7 @@ To run the lightweight engine directly from the terminal:
 
 For safety, you can check the VirusTotal results of the project files once they are released:
 
-* [AppImage (DS4_Bridge-1.0-x86_64.AppImage) - 1.0](https://www.virustotal.com/gui/file/5a65e68e8263cfc67e5cf7b1d257be4e2c48885853c8227e014b0a78baf11017)
+* [AppImage (DS4_Bridge-1.0-x86_64.AppImage) - 1.0](https://www.virustotal.com/gui/file/57038d0210a9e6947ef64f15d4d20288d97b531ad635a2ce2686a30e58e65020)
 * [Compiled Tray Executable (ds4_bridge_tray) - 0.7](https://www.virustotal.com/gui/file/ca4a35cee078751c9abeaa1ee55e1c94c1c9947e98b123060cfa884361020c56?nocache=1) 
 
 

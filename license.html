@@ -166,7 +166,7 @@
 
     <section id="system">
       <h2>6. Changes to your system</h2>
-      <p>DS4 Bridge runs as your normal user. It only changes system settings when you explicitly allow it: the optional permission fix installs a udev rule for <code>/dev/uinput</code> and asks for your administrator password first. "Start on Login" creates a standard autostart entry in your home folder, which you can turn off at any time.</p>
+      <p>DS4 Bridge runs as your normal user. It never asks for administrator rights and never changes system files by itself. If access to <code>/dev/uinput</code> is missing, it only shows the command you can run yourself. "Start on Login" creates a standard autostart entry in your home folder, which you can turn off at any time.</p>
     </section>
 
     <section id="privacy">
