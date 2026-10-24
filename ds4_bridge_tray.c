@@ -3925,7 +3925,7 @@ static void open_settings_window(int page) {
     sw.proc_label = hint_label("");
     gtk_box_pack_start(GTK_BOX(vbox), sw.proc_label, FALSE, FALSE, 0);
     sw.proc_entry = gtk_entry_new();
-    gtk_entry_set_placeholder_text(GTK_ENTRY(sw.proc_entry), "eldenring.exe, hl2_linux");
+    gtk_entry_set_placeholder_text(GTK_ENTRY(sw.proc_entry), "mygame.exe, another_game");
     gtk_entry_set_max_length(GTK_ENTRY(sw.proc_entry), sizeof g_profiles[0].processes - 1);
     g_signal_connect(sw.proc_entry, "changed", G_CALLBACK(on_proc_changed), NULL);
     gtk_box_pack_start(GTK_BOX(vbox), sw.proc_entry, FALSE, FALSE, 0);
