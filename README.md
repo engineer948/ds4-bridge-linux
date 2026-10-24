@@ -1,14 +1,33 @@
-# DS4 to Xbox 360 Bridge (For Knockoff DS4 Controllers)
-
 <div align="center">
-  <a href="https://github.com/engineer948/ds4-bridge-linux/releases/download/1.0/ds4_bridge_tray">
-    <img src="https://img.shields.io/badge/Download-Tray_App_Executable 1.0-blue?style=for-the-badge&logo=c" alt="Download Tray App Executable" />
-  </a>
-  <br>
-  <em>(Click the button to download the executable, or see the one-click terminal command below)</em>
-  <br><br>
-  <b>⚠️ Important:</b> If you download manually, you must make the file executable by running:<br>
-  <code>chmod +x ds4_bridge_tray</code>
+
+<img src="packaging/ds4-bridge.svg" width="112" alt="DS4 Bridge icon" />
+
+# DS4 Bridge for Linux
+
+**Make knockoff DualShock 4 controllers work in every Linux game, as an Xbox 360 controller.**
+
+<a href="https://github.com/engineer948/ds4-bridge-linux/releases/latest"><img src="https://img.shields.io/github/v/release/engineer948/ds4-bridge-linux?style=flat-square&label=release&color=1f6feb" alt="Latest release" /></a>
+<a href="https://github.com/engineer948/ds4-bridge-linux/releases"><img src="https://img.shields.io/github/downloads/engineer948/ds4-bridge-linux/total?style=flat-square&label=downloads&color=2ea043" alt="Total downloads" /></a>
+<a href="https://github.com/engineer948/ds4-bridge-linux/stargazers"><img src="https://img.shields.io/github/stars/engineer948/ds4-bridge-linux?style=flat-square&color=d29922" alt="GitHub stars" /></a>
+<img src="https://img.shields.io/badge/platform-Linux-555?style=flat-square&logo=linux&logoColor=white" alt="Platform: Linux" />
+
+<br><br>
+
+<a href="https://github.com/engineer948/ds4-bridge-linux/releases/download/1.0/DS4_Bridge-1.0-x86_64.AppImage">
+  <img src="https://img.shields.io/badge/Download-AppImage_1.0-1f6feb?style=for-the-badge&logo=linux&logoColor=white" alt="Download AppImage 1.0" />
+</a>
+
+<sub>Ubuntu 22.04+ · Debian 12+ · Linux Mint 21+ · Fedora 35+ · Arch &nbsp;|&nbsp; <a href="https://github.com/engineer948/ds4-bridge-linux/releases/download/1.0/ds4_bridge_tray">plain executable</a> · <a href="#%EF%B8%8F-manual-compilation">build from source</a></sub>
+
+<br>
+
+<b>After downloading:</b> <code>chmod +x DS4_Bridge-1.0-x86_64.AppImage</code> and run it.<br>
+If you like the project, a ⭐ helps others find it.
+
+<br>
+
+[Features](#-features) · [What's new](#-whats-new-in-10) · [Supported distros](#-which-linux-distros-are-supported) · [Usage](#-usage) · [Permissions](#-permissions-run-without-root)
+
 </div>
 
 ---
@@ -24,7 +43,7 @@ Games and launchers (Steam, SDL, Proton/Wine, emulators) that only support XInpu
 
 ## ⬇️ Download (One-Click)
 
-**AppImage (recommended, works on any distro, nothing else to install):**
+**AppImage (recommended, nothing else to install; needs glibc 2.34+, see [supported distros](#-which-linux-distros-are-supported)):**
 
 ```bash
 wget https://github.com/engineer948/ds4-bridge-linux/releases/download/1.0/DS4_Bridge-1.0-x86_64.AppImage && chmod +x DS4_Bridge-1.0-x86_64.AppImage && ./DS4_Bridge-1.0-x86_64.AppImage
