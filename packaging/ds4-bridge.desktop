@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=DS4 Bridge
+GenericName=Controller Bridge
+Comment=Use knockoff DualShock 4 controllers as an Xbox 360 controller
+Comment[az]=Saxta DualShock 4 kontrollerlərini Xbox 360 kontrolleri kimi istifadə edin
+Exec=ds4_bridge_tray
+Icon=ds4-bridge
+Terminal=false
+Categories=Utility;
+Keywords=DS4;DualShock;PS4;controller;gamepad;Xbox;
