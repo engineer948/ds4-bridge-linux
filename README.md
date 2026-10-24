@@ -10,6 +10,7 @@
 <a href="https://github.com/engineer948/ds4-bridge-linux/releases"><img src="https://img.shields.io/github/downloads/engineer948/ds4-bridge-linux/total?style=flat-square&label=downloads&color=2ea043" alt="Total downloads" /></a>
 <a href="https://github.com/engineer948/ds4-bridge-linux/stargazers"><img src="https://img.shields.io/github/stars/engineer948/ds4-bridge-linux?style=flat-square&color=d29922" alt="GitHub stars" /></a>
 <img src="https://img.shields.io/badge/platform-Linux-555?style=flat-square&logo=linux&logoColor=white" alt="Platform: Linux" />
+<a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-c94907?style=flat-square" alt="License: MIT" /></a>
 
 <br><br>
 
@@ -94,7 +95,7 @@ Some fake or knockoff DS4 controllers are not properly recognized as gamepads by
 - **Stick deadzone** per stick (round, rescaled, so movement starts smoothly), invert Y, swap sticks, digital triggers.
 - **Rumble strength** from 0% (off) to 100%.
 - **Virtual controller type**: Xbox 360, Xbox One S or DualShock 4 (PlayStation button icons in games that support them).
-- **Profiles per game**: a profile switches on automatically while a listed program runs (e.g. `eldenring.exe`) and switches back when it exits.
+- **Profiles per game**: a profile switches on automatically while a listed program runs (e.g. `mygame.exe`) and switches back when it exits.
 - **Gyro aiming** (controllers with working motion sensors): drives the right stick or the mouse pointer, always or while a button is held, with calibration.
 - **Desktop mode** (PS + Options): the controller works as a mouse and keyboard.
 - **Controller test** window: live sticks, deadzone, triggers, buttons and gyro, handy for finding the right deadzone for a drifting stick.
@@ -233,6 +234,10 @@ This project is built using and made possible by the following open-source techn
 
 ## 🔍 Keywords / Search Tags
 `fake ds4 linux`, `knockoff ps4 controller linux`, `ds4 not recognized linux`, `ds4 over bluetooth linux problem`, `dualshock 4 clone linux driver`, `fake ds4 to xbox 360`, `ds4 uinput bridge`, `linux fake ds4 fix`, `ps4 controller clone linux setup`, `fake dualshock 4 bluetooth connection issue linux`, `linux ds4 vibration fix`, `fake ps4 controller rumble not working linux`, `knockoff dualshock 4 force feedback linux`, `ds4 bt connection problem ubuntu`, `third-party ps4 controller linux`, `ds4 spoof xbox 360 linux`, `ds4 evdev to uinput`, `unbranded ds4 controller ubuntu`, `generic ps4 controller linux driver`, `ds4 vibration rumble support linux`, `fake ds4 bluetooth pairing failed`, `cheap ps4 controller linux fix`, `ds4 input mapper linux`, `xpadneo alternative for fake ds4`, `linux ds4 emulation`, `fake ds4 windows vs linux`, `ps4 controller wire connection error linux`, `linux mint ds4 controller not detected`, `arch linux fake dualshock 4`, `ds4 force feedback bridge`, `bluetooth ps4 controller clone linux`, `ds4 bt mac address zero linux fix`
+
+## 📄 License
+
+DS4 Bridge is released under the [MIT License](LICENSE). © 2026 engineer948.
 
 ## ⚖️ Legal Disclaimer
 This project is an independent, open-source software tool designed for hardware interoperability. It is **not** affiliated with, endorsed, sponsored, or approved by Sony Interactive Entertainment Inc. 
